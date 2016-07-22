@@ -42,4 +42,9 @@ function generateRoute(functions) {
     return ChildRouter;
 }
 
+router.get('/*', function* () {
+    yield this.render('noFound');
+})
+
+
 module.exports = router;

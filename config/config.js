@@ -16,7 +16,20 @@ var config = {
     //静态文件所在的目录
     "staticDir": path.join(__dirname, '..', 'public'),
 
-    "controllerDir": path.join(__dirname, '..', 'controller')
+    "controllerDir": path.join(__dirname, '..', 'controller'),
+
+    "modelDir": path.join(__dirname, '..', 'model'),
+
+    mongo: {
+        uri: process.env.MONGOLAB_URI ||
+        process.env.MONGOHQ_URL ||
+        'mongodb://localhost/KoaDev',
+        options: {
+            db: {
+                safe: true
+            }
+        }
+    }
 
 };
 
