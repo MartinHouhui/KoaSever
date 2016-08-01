@@ -38,6 +38,9 @@ function generateRoute(functions) {
                 var url = addParam(funcObj.params, controllerUrl, ChildRouter);
                 controllerUrl += url;
             }
+            if (util.isString(funcObj.url)) {
+                controllerUrl = funcObj.url;
+            }
         }
         if (excuteFunc !== null) {
             ChildRouter[method](controllerUrl, excuteFunc)

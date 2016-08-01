@@ -6,12 +6,20 @@ exports.save = function* () {
     this.body = 'ko'
 }
 
-exports.aa = function* () {
-    this.body = 'ko'
-}
 
-exports.bb = function* () {
-    this.body = 'bb'
+
+exports.testbb = {
+    url: '/fuck/:aa/test',
+    method: 'get',
+    params: {
+        aa: function* (aa, next) {
+            this.aa = aa;
+            yield next;
+        }
+    },
+    use: function* () {
+        this.body = { aa: this.aa };
+    }
 }
 
 exports.testaa = {
