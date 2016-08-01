@@ -34,12 +34,27 @@ function generateRoute(functions) {
         } else if (util.isObject(funcObj)) {
             method = funcObj.method;
             excuteFunc = funcObj.use;
+            if (!util.isNullOrUndefined(funcObj.params)) {
+                var url = addParam(funcObj.params, controllerUrl, ChildRouter);
+                controllerUrl += url;
+            }
         }
         if (excuteFunc !== null) {
             ChildRouter[method](controllerUrl, excuteFunc)
         }
     }
     return ChildRouter;
+}
+
+
+function addParam(params, controllerUrl, ChildRouter) {
+    var url = '';
+    var excuteFuc = null;
+    for (var key in params) {
+        url += '/:' + key;
+        ChildRouter.param(key, params[key]);
+    }
+    return url;
 }
 
 router.get('/*', function* () {

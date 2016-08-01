@@ -13,3 +13,16 @@ exports.aa = function* () {
 exports.bb = function* () {
     this.body = 'bb'
 }
+
+exports.testaa = {
+    method: 'get',
+    params: {
+        aa: function* (aa, next) {
+            this.aa = aa;
+            yield next;
+        }
+    },
+    use: function* () {
+        this.body = this.aa
+    }
+}
