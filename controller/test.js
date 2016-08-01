@@ -20,9 +20,13 @@ exports.testaa = {
         aa: function* (aa, next) {
             this.aa = aa;
             yield next;
+        },
+        bb: function* (bb, next) {
+            this.bb = bb;
+            yield next;
         }
     },
     use: function* () {
-        this.body = this.aa
+        this.body = { aa: this.aa, bb: this.bb };
     }
 }
