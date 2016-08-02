@@ -16,7 +16,7 @@ exports.testbb = {
 
 exports.testaa = {
     method: 'get',
-    use: ['aa', 'bb',
+    use: ['aa', 'bb',//params
         function* (next) {
             this.hh = 'test';
             yield next;
