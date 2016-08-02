@@ -24,8 +24,23 @@ fs.readdirSync(config.controllerDir)
 
 function generateRoute(functions) {
     var ChildRouter = new Router();
-    for (var key in functions) {
-        var funcObj = functions[key];
+    if (!util.isNullOrUndefined(functions.params)) {
+        for (var key in functions.params) {
+            ChildRouter.param(key, functions.params[key]);
+        }
+    }
+
+    if (!util.isNullOrUndefined(functions.actions)) {
+        addAction(functions.actions, ChildRouter);
+    } else if (util.isNullOrUndefined(functions.params)) {
+        addAction(functions, ChildRouter);
+    }
+    return ChildRouter;
+}
+
+function addAction(actions, ChildRouter) {
+    for (var key in actions) {
+        var funcObj = actions[key];
         var method = 'get';
         var excuteFunc = null;
         var controllerUrl = ('/' + key);
@@ -33,10 +48,13 @@ function generateRoute(functions) {
             excuteFunc = funcObj;
         } else if (util.isObject(funcObj)) {
             method = funcObj.method;
-            excuteFunc = funcObj.use;
-            if (!util.isNullOrUndefined(funcObj.params)) {
-                var url = addParam(funcObj.params, controllerUrl, ChildRouter);
-                controllerUrl += url;
+
+            if (util.isArray(funcObj.use)) {
+                var execObj = analysisUse(funcObj.use);
+                controllerUrl += execObj.url;
+                excuteFunc = execObj.execF;
+            } else if (util.isFunction(funcObj.use)) {
+                excuteFunc = funcObj.use;
             }
             if (util.isString(funcObj.url)) {
                 controllerUrl = funcObj.url;
@@ -46,19 +64,25 @@ function generateRoute(functions) {
             ChildRouter[method](controllerUrl, excuteFunc)
         }
     }
-    return ChildRouter;
 }
 
-
-function addParam(params, controllerUrl, ChildRouter) {
+function analysisUse(useArray) {
     var url = '';
-    var excuteFuc = null;
-    for (var key in params) {
-        url += '/:' + key;
-        ChildRouter.param(key, params[key]);
+    var execF = null;
+    useArray.forEach(function (item) {
+        if (util.isString(item)) {
+            url += '/:' + item;
+        }
+        if (util.isFunction(item)) {
+            execF = item;
+        }
+    });
+    return {
+        url: url,
+        execF: execF
     }
-    return url;
 }
+
 
 router.get('/*', function* () {
     yield this.render('noFound');
