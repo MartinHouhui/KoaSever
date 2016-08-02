@@ -60,21 +60,25 @@ function addAction(actions, ChildRouter) {
                 controllerUrl = funcObj.url;
             }
         }
-        if (excuteFunc !== null) {
-            ChildRouter[method](controllerUrl, excuteFunc)
+        if (util.isArray(excuteFunc)) {
+            excuteFunc.unshift(controllerUrl);
+            ChildRouter[method].apply(ChildRouter, Array.prototype.slice.call(excuteFunc));
+        }
+        else if (excuteFunc !== null) {
+            ChildRouter[method](controllerUrl, excuteFunc);
         }
     }
 }
 
 function analysisUse(useArray) {
     var url = '';
-    var execF = null;
+    var execF = [];
     useArray.forEach(function (item) {
         if (util.isString(item)) {
             url += '/:' + item;
         }
         if (util.isFunction(item)) {
-            execF = item;
+            execF.push(item);
         }
     });
     return {
