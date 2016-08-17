@@ -1,5 +1,6 @@
+var auth = require('../auth');
 exports.test = function* () {
-    yield this.render('index', { "title": "koa demo" });
+    yield this.render('index', { "title": "koa demo" }); //get
 }
 
 exports.save = function* () {
@@ -9,9 +10,11 @@ exports.save = function* () {
 exports.testbb = {
     url: '/fuck/:aa/test',
     method: 'get',
-    use: ['aa', function* () {
-        this.body = this.params;
-    }]
+    use: ['aa',
+        auth.isAuthenticated(),//add 验证
+        function* () {
+            this.body = this.params;
+        }]
 }
 
 exports.testaa = {
