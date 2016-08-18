@@ -1,4 +1,4 @@
-var auth = require('../auth');
+var auth = require('../auth/service');
 exports.test = function* () {
     yield this.render('index', { "title": "koa demo" }); //get
 }
