@@ -1,6 +1,8 @@
 var compose = require('koa-compose');
 var jwt = require('koa-jwt');
 
+var config = require('../config/config');
+
 //var User = require('../model/User'); //获取User
 
 var validateJwt = jwt({

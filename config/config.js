@@ -20,6 +20,8 @@ var config = {
 
     "modelDir": path.join(__dirname, '..', 'model'),
 
+    'secrets_session': 'koaDemo.sid',
+
     mongo: {
         uri: process.env.MONGOLAB_URI ||
         process.env.MONGOHQ_URL ||

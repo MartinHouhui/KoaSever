@@ -3,7 +3,7 @@
 var passport = require('koa-passport');
 var signToken = require('../service').signToken;
 
-var User = require('../model/user');
+var User = require('../../model/user');
 
 // Passport Configuration
 require('./passport').setup(User);
