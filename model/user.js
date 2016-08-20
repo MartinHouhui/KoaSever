@@ -143,17 +143,19 @@ UserSchema
             next(new Error('Invalid password'));
         }
 
+        var me = this;
+
         // Make salt with a callback
         this.makeSalt(function (saltErr, salt) {
             if (saltErr) {
                 next(saltErr);
             }
-            this.salt = salt;
-            this.encryptPassword(this.password, (encryptErr, hashedPassword) => {
+            me.salt = salt;
+            me.encryptPassword(me.password, (encryptErr, hashedPassword) => {
                 if (encryptErr) {
                     next(encryptErr);
                 }
-                this.password = hashedPassword;
+                me.password = hashedPassword;
                 next();
             });
         });

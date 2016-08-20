@@ -11,7 +11,7 @@
     "co-urllib": "0.2.3",
     "crypto": "0.0.3",
     "debug": "^2.0.0",
-    "jsonwebtoken": "^7.1.6",
+    "jsonwebtoken": "^7.1.9",
     "koa": "0.6.0",
     "koa-bodyparser": "1.3.0",
     "koa-compose": "^2.4.0",
