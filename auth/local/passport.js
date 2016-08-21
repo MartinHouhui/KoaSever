@@ -1,12 +1,12 @@
 var passport = require('koa-passport');
 var LocalStrategy = require('passport-local').Strategy;
+var co = require('co');
 
 function localAuthenticate(User, phonenumber, password, done) {
     co(function* () {
         var user = yield User.findOneAsync({
             $or: [{ 'phonenumber': phonenumber }, { 'name': phonenumber }, { 'email': phonenumber }]
         });
-
         if (!user) {
             return done(null, false, {
                 message: '用户不存在！'
