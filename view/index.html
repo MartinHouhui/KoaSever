@@ -19,9 +19,32 @@
                                     phonenumber:'15950006689',
                                     password:'123'
                 })
-                }).then(function(data){
-                    console.log(data);
+                }).then(function(response) {
+                    return response.json()
+                }).then(function(json) {
+                    window.localStorage.setItem('token',json.token);
+                    console.log('parsed json', json)
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex)
                 })
+
+setTimeout(function(){
+    fetch('/demo/fuck/aa/test', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'authorization': 'Bearer ' + window.localStorage.getItem('token')
+                }
+                }).then(function(response) {
+                    return response.json()
+                }).then(function(json) {
+                    window.localStorage.setItem('token',json.token);
+                    console.log('parsed json', json)
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex)
+                })
+},1000)
 
 
             /*fetch('/auth/create', {
@@ -57,7 +80,7 @@
     </footer>
 
 
-
+   
 
 
 </body>

@@ -1,6 +1,6 @@
 var compose = require('koa-compose');
 var jwt = require('koa-jwt');
-
+var User = require('../model/user');
 var config = require('../config/config');
 
 //var User = require('../model/User'); //获取User
@@ -20,7 +20,7 @@ exports.isAuthenticated = function () {
             this.headers.authorization = 'Bearer ' + this.query.access_token;
         }
 
-        yield validateJwt(next);
+        yield validateJwt.bind(this)(next);
     }
 
     function* attachUserToContext(next) {
