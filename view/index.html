@@ -16,8 +16,8 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                                    phonenumber:'15950006689',
-                                    password:'123'
+                                    userName:'15950006689',
+                                    password:'1233'
                 })
                 }).then(function(response) {
                     return response.json()
@@ -28,7 +28,7 @@
                     console.log('parsing failed', ex)
                 })
 
-setTimeout(function(){
+/*setTimeout(function(){
     fetch('/demo/fuck/aa/test', {
                 method: 'GET',
                 headers: {
@@ -43,7 +43,7 @@ setTimeout(function(){
                 }).catch(function(ex) {
                     console.log('parsing failed', ex)
                 })
-},1000)
+},1000)*/
 
 
             /*fetch('/auth/create', {

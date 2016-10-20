@@ -13,7 +13,7 @@ module.exports = function* (next) {
     yield passport.authenticate('local', function* (err, user, info) {
         var error = err || info;
         if (error) {
-            me.throw(401, error);
+           me.body = {success: false, message: error.message };
             return;
         }
         if (!user) {
@@ -22,6 +22,6 @@ module.exports = function* (next) {
         }
 
         var token = signToken(user._id, user.role);
-        me.body = { token: token };
+        me.body = {success: true, token: token };
     }).bind(me)(next);
 }

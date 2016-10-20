@@ -28,7 +28,7 @@ function localAuthenticate(User, phonenumber, password, done) {
 
 exports.setup = function (User) {
     passport.use(new LocalStrategy({
-        usernameField: 'phonenumber',
+        usernameField: 'userName',
         passwordField: 'password' // this is the virtual field on the model
     }, function (phonenumber, password, done) {
         return localAuthenticate(User, phonenumber, password, done);

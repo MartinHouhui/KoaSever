@@ -17,7 +17,7 @@ exports.create = {
             var token = jwt.sign({ _id: user._id }, config.secrets_session, {
                 expiresIn: 60 * 60 * 5
             });
-            this.body = { token: token };
+            this.body = { success: true, token: token };
 
         } catch (error) {
             this.throw(422, error);
